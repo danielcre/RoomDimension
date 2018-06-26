@@ -1,0 +1,57 @@
+﻿<Window x:Class="RoomDimensions.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoomDimensions"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Input"  Grid.Column="0" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Label HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Room Width (m):</Label>
+                <Label Grid.Row="1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Room Length (m):</Label>
+                <Label Grid.Row="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Room Height (m):</Label>
+                <Label Grid.Row="3" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Paint m² per Litre:</Label>
+                <TextBox x:Name="roomWidthTextbox" Grid.Column="1" VerticalContentAlignment="Center" TextChanged="textChanged" Margin="0,1">10</TextBox>
+                <TextBox x:Name="roomLengthTextbox" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" TextChanged="textChanged" Margin="0,1">10</TextBox>
+                <TextBox x:Name="roomHeightTextbox" Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Center" TextChanged="textChanged" Margin="0,1">2</TextBox>
+                <TextBox x:Name="paintPerLitreTextbox" Grid.Column="1" Grid.Row="3" VerticalContentAlignment="Center" TextChanged="textChanged" Margin="0,1">13</TextBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Output" Grid.Column="1" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Label HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Floor Area:</Label>
+                <Label Grid.Row="1" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Room Volume:</Label>
+                <Label Grid.Row="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">Paint Required:</Label>
+                <Label x:Name="floorAreaLabel" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+                <Label x:Name="roomVolumeLabel" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+                <Label x:Name="paintRequiredLabel" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center"></Label>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
