@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using RoomDimensionCalculations;
 
 namespace RoomDimensions
 {
@@ -21,6 +22,19 @@ namespace RoomDimensions
         {
             Update();
         }
+        private double CheckTextbox(TextBox textBox, ref bool invalidValue)
+        {
+            double textBoxValue;
+            if (!Double.TryParse(textBox.Text, out textBoxValue) || textBoxValue <= 0)
+            {
+                invalidValue = true;
+                textBox.Background = new SolidColorBrush(Colors.LightCoral);
+            }
+            else
+                textBox.ClearValue(TextBox.BackgroundProperty);
+
+            return textBoxValue;
+        }
         private void Update() {
             if (roomWidthTextbox == null || roomHeightTextbox == null || roomLengthTextbox == null || paintPerLitreTextbox == null || floorAreaLabel == null || roomVolumeLabel == null || paintRequiredLabel == null)
                 return;
@@ -28,37 +42,10 @@ namespace RoomDimensions
             double roomWidth, roomLength, roomHeight, paintPerLitre;
             bool invalidValue = false;
 
-            if (!Double.TryParse(roomWidthTextbox.Text, out roomWidth) || roomWidth <= 0)
-            {
-                invalidValue = true;
-                roomWidthTextbox.Background = new SolidColorBrush(Colors.LightCoral);
-            }
-            else
-                roomWidthTextbox.ClearValue(TextBox.BackgroundProperty);
-
-            if (!Double.TryParse(roomLengthTextbox.Text, out roomLength) || roomLength <= 0)
-            {
-                invalidValue = true;
-                roomLengthTextbox.Background = new SolidColorBrush(Colors.LightCoral);
-            }
-            else
-                roomLengthTextbox.ClearValue(TextBox.BackgroundProperty);
-
-            if (!Double.TryParse(roomHeightTextbox.Text, out roomHeight) || roomHeight <= 0)
-            {
-                invalidValue = true;
-                roomHeightTextbox.Background = new SolidColorBrush(Colors.LightCoral);
-            }
-            else
-                roomHeightTextbox.ClearValue(TextBox.BackgroundProperty);
-
-            if (!Double.TryParse(paintPerLitreTextbox.Text, out paintPerLitre) || paintPerLitre <= 0)
-            {
-                invalidValue = true;
-                paintPerLitreTextbox.Background = new SolidColorBrush(Colors.LightCoral);
-            }
-            else
-                paintPerLitreTextbox.ClearValue(TextBox.BackgroundProperty);
+            roomWidth = CheckTextbox(roomWidthTextbox, ref invalidValue);
+            roomLength = CheckTextbox(roomLengthTextbox, ref invalidValue);
+            roomHeight = CheckTextbox(roomHeightTextbox, ref invalidValue);
+            paintPerLitre = CheckTextbox(paintPerLitreTextbox, ref invalidValue);
 
             if (invalidValue)
             {
@@ -68,11 +55,11 @@ namespace RoomDimensions
             }
             else
             {
-                floorAreaLabel.Content = (roomWidth * roomLength) + " m²";
-                roomVolumeLabel.Content = (roomWidth * roomLength * roomHeight) + " m³";
-                double wallArea = (2 * roomWidth * roomHeight) + (2 * roomLength * roomHeight);
-                paintRequiredLabel.Content = (wallArea / paintPerLitre).ToString("N2") + " litres";
+                floorAreaLabel.Content = RoomMath.floorArea(roomWidth, roomLength) + " m²";
+                roomVolumeLabel.Content = RoomMath.roomVolume(roomWidth, roomLength, roomHeight) + " m³";
+                paintRequiredLabel.Content = RoomMath.paintRequired(roomWidth, roomLength, roomHeight, paintPerLitre).ToString("N2") + " litres";
             }
+            
         }
     }
 }

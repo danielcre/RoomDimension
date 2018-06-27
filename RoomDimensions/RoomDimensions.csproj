@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RoomDimensionCalculations\RoomDimensionCalculations.csproj">
+      <Project>{d3c46b55-562c-4c0a-a863-233bfd9026ce}</Project>
+      <Name>RoomDimensionCalculations</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
